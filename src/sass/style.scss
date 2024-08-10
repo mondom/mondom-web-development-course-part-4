@@ -1,3 +1,6 @@
-body{
-    background-color: #c26610;
+@use "./colors";
+
+body {
+	background-color: colors.$blue;
 }
+// namespace.$variable
