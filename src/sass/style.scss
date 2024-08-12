@@ -1,6 +1,8 @@
-@use "./colors" as c;
+@use "./utilities" as *;
+
+
 
 body {
-	background-color: c.$green;
+	background-color: $green;
 }
 // namespace.$variable
