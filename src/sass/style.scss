@@ -1,12 +1,14 @@
-@use "./utilities" as *;
+
 
 body {
-	background-color: $blue;
+	background-color: royalblue;
 }
 div {
 	width: 200px;
 	height: 200px;
-	color: $green;
+	color: lime;
 	font-size: 26px;
 	appearance: none;
+	background-clip: text;
+	user-select: none;
 }
