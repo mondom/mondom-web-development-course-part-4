@@ -6,9 +6,20 @@ const rename = require("gulp-rename")
 const babel = require("gulp-babel")
 const uglify = require("gulp-uglify")
 const imagemin = require("gulp-imagemin")
+const sourcemaps = require("gulp-sourcemaps")
+
+const paths = {
+	sass: "./src/sass/**/*.scss",
+	js: "./src/js/**/*.js",
+	img: "./src/img/*",
+	sassDest: "./dist/css",
+	jsDest: "./dist/js",
+	imgDest: "./dist/img",
+}
 
 function sassCompiler(done) {
-	src("./src/sass/**/*.scss")
+	src(paths.sass)
+		.pipe(sourcemaps.init())
 		.pipe(sass().on("error", sass.logError))
 		.pipe(autoprefixer())
 		.pipe(cssnano())
@@ -17,12 +28,14 @@ function sassCompiler(done) {
 				suffix: ".min",
 			})
 		)
-		.pipe(dest("./dist/css"))
+		.pipe(sourcemaps.write())
+		.pipe(dest(paths.sassDest))
 	done()
 }
 
 function javaScript(done) {
-	src("./src/js/**/*.js")
+	src(paths.js)
+		.pipe(sourcemaps.init())
 		.pipe(
 			babel({
 				presets: ["@babel/env"],
@@ -34,14 +47,12 @@ function javaScript(done) {
 				suffix: ".min",
 			})
 		)
-		.pipe(dest("./dist/js"))
+		.pipe(sourcemaps.write())
+		.pipe(dest(paths.jsDest))
 	done()
 }
 function convertImages(done) {
-	src("./src/img/*")
-		.pipe(imagemin())
-
-		.pipe(dest("./dist/img"))
+	src(paths.img).pipe(imagemin()).pipe(dest(paths.imgDest))
 	done()
 }
 
