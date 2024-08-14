@@ -4,7 +4,8 @@ const autoprefixer = require("gulp-autoprefixer")
 const cssnano = require("gulp-cssnano")
 const rename = require("gulp-rename")
 const babel = require("gulp-babel")
-const uglify = require('gulp-uglify');
+const uglify = require("gulp-uglify")
+const imagemin = require("gulp-imagemin")
 
 function sassCompiler(done) {
 	src("./src/sass/**/*.scss")
@@ -36,5 +37,12 @@ function javaScript(done) {
 		.pipe(dest("./dist/js"))
 	done()
 }
+function convertImages(done) {
+	src("./src/img/*")
+		.pipe(imagemin())
 
-exports.default = series(sassCompiler, javaScript)
+		.pipe(dest("./dist/img"))
+	done()
+}
+
+exports.default = series(sassCompiler, javaScript, convertImages)
