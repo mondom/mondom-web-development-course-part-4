@@ -70,6 +70,8 @@ function startBrowserSync(done) {
 
 function watchForChanges(done) {
 	watch("./*.html").on("change", reload)
+	watch([paths.sass,paths.js], parallel(sassCompiler,javaScript)).on("change", reload)
+	watch(paths.img, convertImages).on('change', reload)
 	done()
 }
 
