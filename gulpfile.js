@@ -10,6 +10,7 @@ const sourcemaps = require("gulp-sourcemaps")
 const browserSync = require("browser-sync").create()
 const reload = browserSync.reload
 const clean = require("gulp-clean")
+const kit = require("gulp-kit")
 
 const paths = {
 	sass: "./src/sass/**/*.scss",
@@ -57,6 +58,10 @@ function javaScript(done) {
 }
 
 function convertImages(done) {
+	src(paths.img).pipe(imagemin()).pipe(dest(paths.imgDest))
+	done()
+}
+function handleKits(done) {
 	src(paths.img).pipe(imagemin()).pipe(dest(paths.imgDest))
 	done()
 }
